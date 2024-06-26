@@ -9,23 +9,28 @@
             <input type="text" name="genre" placeholder="Genre" required>
             <input type="submit" value="Add Book" class="btn-input">
           </form>
-
-        <input type="submit" value="delete book" class="btn-input"> 
+         
+          <h1> Delete </h1>
         <form action="/delete" method="POST">
             <input type="number" name="id_books" placeholder="Book ID" required>
-            <input type="submit" value="Delete Book">
+            <input type="submit" value="delete book" class="btn-input">
           </form>
-
-        <input type="submit" value="update book" class="btn-input">
+          <h1> Modify </h1>
         <form action="/update" method="POST">
             <input type="number" name="id_books" placeholder="Book ID" required>
             <input type="text" name="title" placeholder="Title">
             <input type="number" name="id_authors" placeholder="Author ID">
             <input type="number" name="publication_year" placeholder="Publication Year">
             <input type="text" name="genre" placeholder="Genre">
-            <input type="submit" value="Update Book">
+            <input type="submit" value="update book" class="btn-input">
           </form>
-          
+
+          <h1>Loan Update</h1>
+          <form action="/updateLoan" method="POST">
+              <input type="number" name="id_loan" placeholder="Loan ID" required>
+              <input type="text" name="return_date" placeholder="return date"required>
+              <input type="submit" value="Add Loan">
+            </form>
     </main>
 
     <div class="recomend_container">
@@ -35,7 +40,9 @@
           <h1> <%= deleteThink %> </h1>
         <% }else if (locals.updateThink){ %>
           <h1> <%= updateThink %> </h1>
-        <% } %>
+          <% }else if (locals.updateLoan){ %>
+            <h1> <%= updateLoan %> </h1>
+          <% } %>
     </div>
 </body>
 <%- include("partials/footer.ejs") %>

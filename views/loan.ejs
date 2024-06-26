@@ -1,0 +1,19 @@
+<%- include("partials/header.ejs") %>
+<body>
+  <div class="container">
+    <h1>Take the Book</h1>
+    <form action="/addLoan" method="POST">
+      <input type="hidden" name="name_r" value="<%= name_r %>">
+      <input type="hidden" name="email" value="<%= email %>">
+      <input type="number" name="id_books" placeholder="Book ID" required>
+      <input type="date" name="loan_date" placeholder="Date of Loan" required>
+      <input type="submit" value="Add Loan">
+    </form>
+    <div class="recomend_container">
+      <% if (locals.message) { %>
+        <p><%= message %></p>
+      <% } %>
+    </div>
+  </div>
+</body>
+<%- include("partials/footer.ejs") %>
