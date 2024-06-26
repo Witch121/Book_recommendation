@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+<body>
+  <div class="container">
+    <h1>Welcome to the Book Library</h1>
+    <form action="/searchGenre" method="GET">
+      <input type="text" name="genre" placeholder="Enter genre" required>
+      <input type="submit" value="Search">
+    </form>
+
+    <form action="/searchAuthor" method="GET">
+      <input type="text" name="author" placeholder="Enter author" required>
+      <input type="submit" value="Search">
+    </form>
+    <form action="/searchTitel" method="GET">
+      <input type="text" name="titel" placeholder="Enter titel" required>
+      <input type="submit" value="Search">
+    </form>
+    <a href="/books">View All Books</a>
+  </div>
+</body>
+<%- include("partials/footer.ejs") %>

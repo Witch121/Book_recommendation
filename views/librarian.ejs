@@ -1,0 +1,41 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <main>
+        <h1> ADD</h1>
+        <form action="/new" method="POST">
+            <input type="text" name="title" placeholder="Title" required>
+            <input type="number" name="id_authors" placeholder="Author ID" required>
+            <input type="number" name="publication_year" placeholder="Publication Year" required>
+            <input type="text" name="genre" placeholder="Genre" required>
+            <input type="submit" value="Add Book" class="btn-input">
+          </form>
+
+        <input type="submit" value="delete book" class="btn-input"> 
+        <form action="/delete" method="POST">
+            <input type="number" name="id_books" placeholder="Book ID" required>
+            <input type="submit" value="Delete Book">
+          </form>
+
+        <input type="submit" value="update book" class="btn-input">
+        <form action="/update" method="POST">
+            <input type="number" name="id_books" placeholder="Book ID" required>
+            <input type="text" name="title" placeholder="Title">
+            <input type="number" name="id_authors" placeholder="Author ID">
+            <input type="number" name="publication_year" placeholder="Publication Year">
+            <input type="text" name="genre" placeholder="Genre">
+            <input type="submit" value="Update Book">
+          </form>
+          
+    </main>
+
+    <div class="recomend_container">
+        <% if (locals.newThink) { %>
+          <p> <%= newThink %> </p>
+        <% } else if (locals.deleteThink) { %>
+          <h1> <%= deleteThink %> </h1>
+        <% }else if (locals.updateThink){ %>
+          <h1> <%= updateThink %> </h1>
+        <% } %>
+    </div>
+</body>
+<%- include("partials/footer.ejs") %>

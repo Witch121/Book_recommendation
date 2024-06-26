@@ -1,0 +1,51 @@
+<%- include("partials/header.ejs") %>
+<body>
+  <div class = "recomend_container">
+    <img src="/img/book_cat_icon.jpg" id = "left_icon">
+
+    <% if (locals.randomWord) { %>
+        <h1> <%= randomWord %> </h1>
+        <form action="/recommendation" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate Book" class = "btn-input">
+        </form>
+      <% } else if (locals.randomFantasy) { %>
+        <h1> <%= randomFantasy %> </h1>
+        <form action="/fantasy" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate Fantasy Book" class = "btn-input">
+        </form>
+      <% } else if (locals.randomNovel) { %>
+        <h1> <%= randomNovel %> </h1>
+        <form action="/novel" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate Novel Book" class = "btn-input">
+        </form> 
+      <% } else if (locals.randomSciFi) { %>
+        <h1> <%= randomSciFi %> </h1>
+        <form action="/SciFi" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate SciFi Book" class = "btn-input">
+        </form> 
+      <% } else if (locals.randomRomantic) { %>
+        <h1> <%= randomRomantic %> </h1>
+        <form action="/romantic" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate Romantic Book" class = "btn-input">
+        </form>  
+      <% } else if (locals.randomDystopia) { %>
+        <h1> <%= randomDystopia %> </h1>
+        <form action="/dystopia" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate Dystopia Book" class = "btn-input">
+        </form> 
+      <% } else if (locals.randomPoem) { %>
+        <h1> <%= randomPoem %> </h1>
+        <form action="/poem" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate Poem Book" class = "btn-input">
+        </form>    
+      <% } else { %>
+        <h1> Let`s choose the perfect <br> Book </h1>
+        <form action="/recommendation" method="POST" class = "recomend_form">
+          <input type="submit" value="Generate Book" class = "btn-input">
+        </form>
+      <% } %>
+
+    <img src="/img/about_img.jpg" id = "right_icon">
+  </div>
+</body>
+<%- include("partials/footer.ejs") %>
