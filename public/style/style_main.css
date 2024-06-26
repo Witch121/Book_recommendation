@@ -1,9 +1,7 @@
 body {
-    background-color: #ccebff !important;
+    background-color: #e6f2ff !important;
 }
-header {
-    background-color: white !important;
-}
+
 .main {
     display: grid;
     grid-template-columns: 20% 80%;

@@ -1,0 +1,12 @@
+@import "./reset.css";
+@import "./style_main.css";
+@import "./components/about.css";
+@import "./components/booksLoan.css";
+@import "./components/footer.css";
+@import "./components/header.css";
+@import "./components/librarian.css";
+@import "./components/login_register.css";
+@import "./components/moodBoard.css";
+@import "./components/recomendation.css";
+@import "./components/search.css";
+@import "./components/searchResults.css";
