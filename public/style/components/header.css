@@ -4,6 +4,10 @@ header {
 .label {
     width: 5rem;
     height: 5rem;
+    border: 0.2em solid #E8E8E8;
+}
+.label:hover {
+    border: 0.5em solid #E8E8E8;
 }
 .header_row {
     height: 7rem;

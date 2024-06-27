@@ -51,7 +51,11 @@ app.get("/searchBooks", (req, res) => {
 
 app.get("/books", async (req, res) => {
   try {
-    const [rows, fields] = await db.execute("SELECT * FROM books");
+    const [rows, fields] = await db.execute(
+      `SELECT books.id_books, books.title, books.id_authors, authors.name_a AS author_name, books.publication_year, books.genre 
+      FROM books 
+      JOIN authors ON books.id_authors = authors.id_authors`
+    );
     res.render("searchResults.ejs", { books: rows });
   } catch (error) {
     console.error(error);
@@ -62,7 +66,13 @@ app.get("/books", async (req, res) => {
 app.get("/searchGenre", async (req, res) => {
   const genre = req.query.genre;
   try {
-    const [rows, fields] = await db.execute("SELECT * FROM books WHERE LOWER(genre) = ?", [genre.toLowerCase()]);
+    const [rows, fields] = await db.execute(
+      `SELECT books.id_books, books.title, books.id_authors, authors.name_a AS author_name, books.publication_year, books.genre 
+       FROM books 
+       JOIN authors ON books.id_authors = authors.id_authors 
+       WHERE LOWER(books.genre) = ?`,
+      [genre.toLowerCase()]
+    );
     res.render("searchResults.ejs", { books: rows, genre: genre });
   } catch (error) {
     console.error(error);
@@ -70,16 +80,18 @@ app.get("/searchGenre", async (req, res) => {
   }
 });
 
+
 app.get("/searchAuthor", async (req, res) => {
   const author_name = req.query.author;
   try {
     const [rows, fields] = await db.execute(
-      `SELECT books.title AS book_title, authors.name_a AS author_name, books.publication_year 
+      `SELECT books.id_books, books.title, books.id_authors, authors.name_a AS author_name, books.publication_year, books.genre
        FROM books 
        JOIN authors ON books.id_authors = authors.id_authors 
        WHERE LOWER(authors.name_a) = ?`,
       [author_name.toLowerCase()]
     );
+    // console.log(rows);  // Log the rows to ensure we are getting the expected data
     res.render("searchResults.ejs", { books: rows, author_name: author_name });
   } catch (error) {
     console.error(error);
@@ -87,11 +99,15 @@ app.get("/searchAuthor", async (req, res) => {
   }
 });
 
+
 app.get("/searchTitle", async (req, res) => {
   const title = req.query.title;
   try {
     const [rows, fields] = await db.execute(
-      "SELECT * FROM books WHERE LOWER(title) LIKE ?",
+      `SELECT books.id_books, books.title, books.id_authors, authors.name_a AS author_name, books.publication_year, books.genre
+       FROM books 
+       JOIN authors ON books.id_authors = authors.id_authors 
+       WHERE LOWER(books.title) LIKE ?`,
       [`%${title.toLowerCase()}%`]
     );
     res.render("searchResults.ejs", { books: rows, title: title });
@@ -100,6 +116,7 @@ app.get("/searchTitle", async (req, res) => {
     res.send("Error retrieving books.");
   }
 });
+
 
 app.post("/recommendation", async (req, res) => {
   const [rows, fields] = await db.execute("SELECT title FROM lab2.books");

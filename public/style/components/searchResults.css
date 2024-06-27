@@ -1,0 +1,69 @@
+.Link.Btn {
+    border-radius: 1.3rem;
+    border: 0.1rem solid #999999;
+    background-color: #cce6ff;
+    min-height: 2.3rem;
+    font-weight: 600;
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+.Link.Btn a {
+    text-decoration: none;
+    color: black;
+}
+.books_table {
+    grid-area: 1/1/-1/2;
+}
+table {
+    line-height: 2rem;
+    width: 100%;
+}
+th {
+    text-align: start;
+    min-width: 3rem;
+}
+.container.results {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+.booksHandlerBtn {
+    display: flex;
+    justify-content: left;
+    margin-top: 4rem;
+    height: fit-content;
+}
+.booksHandlerBtn .Link.Btn:hover {
+    background-color: #b3daff;
+}
+@media screen and (max-width: 1000px) {
+    .booksHandlerBtn {
+        flex-direction: column;
+        margin: 0;
+        margin-top: 4rem;
+    }
+}
+@media screen and (max-width: 768px) {
+    table, th, tr, td {
+        border: 0.1rem solid 	#E8E8E8;
+        border-width: 0.1rem !important;
+    }
+    th {
+        min-width: 1.5rem;
+    }
+    .Link.Btn {
+        border-radius: 1.3rem;
+        border: 0.1rem solid #999999;
+        background-color: #cce6ff;
+        min-height: 2.3rem;
+        padding: 0.5rem;
+    }
+    .booksHandlerBtn{
+        margin: 0.5rem;
+        justify-content: center;
+    }
+    .container.results {
+        display: flex;
+        flex-direction: column;
+    }
+}
