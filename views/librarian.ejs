@@ -1,51 +1,66 @@
 <%- include("partials/header.ejs") %>
 <body>
     <main>
-      <div  class="librarian_form">
-        <h1> Add</h1>
-        <form action="/new" method="POST">
-            <input type="text" name="title" placeholder="Title" required>
-            <input type="number" name="id_authors" placeholder="Author ID" required>
-            <input type="number" name="publication_year" placeholder="Publication Year" required>
-            <input type="text" name="genre" placeholder="Genre" required>
-            <input type="submit" value="Add Book" class="btn-input">
-          </form>
-         
-          <h1> Delete </h1>
-        <form action="/delete" method="POST">
-            <input type="number" name="id_books" placeholder="Book ID" required>
-            <input type="submit" value="delete book" class="btn-input">
-          </form>
-          <h1> Modify </h1>
-        <form action="/update" method="POST">
-            <input type="number" name="id_books" placeholder="Book ID" required>
-            <input type="text" name="title" placeholder="Title">
-            <input type="number" name="id_authors" placeholder="Author ID">
-            <input type="number" name="publication_year" placeholder="Publication Year">
-            <input type="text" name="genre" placeholder="Genre">
-            <input type="submit" value="update book" class="btn-input">
-          </form>
-
-          <h1>Loan Update</h1>
-          <form action="/updateLoan" method="POST">
-              <input type="number" name="id_loan" placeholder="Loan ID" required>
-              <input type="text" name="return_date" placeholder="return date"required>
-              <input type="submit" value="Add Loan">
-            </form>
-      </div>
-        
-    </main>
-
-    <div class="recomend_container">
+    <div class="librarian_form">
         <% if (locals.newThink) { %>
-          <p> <%= newThink %> </p>
+          <div class="feedback">
+            <h1> <%= newThink %> </h1>
+            <button class="Link Btn"><a href="/librarian">Back</a></button>
+          </div>
         <% } else if (locals.deleteThink) { %>
-          <h1> <%= deleteThink %> </h1>
+          <div class="feedback">
+            <h1> <%= deleteThink %> </h1>
+            <button class="Link Btn"><a href="/librarian">Back</a></button>
+          </div>
         <% }else if (locals.updateThink){ %>
-          <h1> <%= updateThink %> </h1>
+          <div class="feedback">
+            <h1> <%= updateThink %> </h1>
+            <button class="Link Btn"><a href="/librarian">Back</a></button>
+          </div>
           <% }else if (locals.updateLoan){ %>
-            <h1> <%= updateLoan %> </h1>
+            <div class="feedback">
+              <h1> <%= updateLoan %> </h1>
+              <button class="Link Btn"><a href="/librarian">Back</a></button>
+            </div>
+          <% } else { %>
+              <div class="add_Book librarian area">
+                <h1> Add</h1>
+                <form action="/new" method="POST">
+                    <input type="text" name="title" placeholder="Title" required>
+                    <input type="number" name="id_authors" placeholder="Author ID" required>
+                    <input type="number" name="publication_year" placeholder="Publication Year" required>
+                    <input type="text" name="genre" placeholder="Genre" required>
+                    <input type="submit" value="Add Book" class="small">
+                  </form>
+              </div>
+              <div class="delete_Book librarian area">
+                <h1> Delete </h1>
+              <form action="/delete" method="POST">
+                  <input type="number" name="id_books" placeholder="Book ID" required>
+                  <input type="submit" value="delete book" class="small">
+                </form>
+              </div>
+              <div class="modify_Book librarian area">
+                <h1> Modify </h1>
+              <form action="/update" method="POST">
+                  <input type="number" name="id_books" placeholder="Book ID" required>
+                  <input type="text" name="title" placeholder="Title">
+                  <input type="number" name="id_authors" placeholder="Author ID">
+                  <input type="number" name="publication_year" placeholder="Publication Year">
+                  <input type="text" name="genre" placeholder="Genre">
+                  <input type="submit" value="update book" class="small">
+                </form>
+              </div>
+              <div class="loan_update librarian area">
+                <h1>Loan Update</h1>
+                <form action="/updateLoan" method="POST">
+                    <input type="number" name="id_loan" placeholder="Loan ID" required>
+                    <input type="text" name="return_date" placeholder="return date"required>
+                    <input type="submit" value="Add Loan" class="small">
+                  </form>
+            </div>
           <% } %>
     </div>
+  </main>
 </body>
 <%- include("partials/footer.ejs") %>

@@ -2,7 +2,6 @@
 <body>
   <div class = "recomend_container">
     <img src="/img/book_cat_icon.jpg" id = "left_icon">
-
     <% if (locals.randomWord) { %>
         <h1> <%= randomWord %> </h1>
         <form action="/recommendation" method="POST" class = "recomend_form">

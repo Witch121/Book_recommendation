@@ -1,20 +1,22 @@
 <%- include("partials/header.ejs") %>
 <body>
-  <div class="container">
-    <h1>Take the Book</h1>
-    <form action="/addLoan" method="POST">
+  <div class="container new loan">
+    <img src="img/Book_flowerd_img.jpg" class="addLoan img left">
+    <h1 class="loan titel">Take the Book</h1>
+    <form action="/addLoan" method="POST" class="loan form">
       <input type="hidden" name="name_r" value="<%= name_r %>">
       <input type="hidden" name="email" value="<%= email %>">
-      <input type="number" name="id_books" placeholder="Book ID" required>
-      <input type="text" name="loan_date" placeholder="Date of Loan" required>
-      <input type="submit" value="Add Loan">
+      <input type="number" class="input addLoan area" name="id_books" placeholder="Book ID" required>
+      <input type="text" class="input addLoan area" name="loan_date" placeholder="Date of Loan" required>
+      <div class="addLoan buttons">
+        <input type="submit" value="Add Loan" class="small">
+        <button  class="small"><a href="/">Back</a></button>
+      </div>
     </form>
-    <div class="recomend_container">
       <% if (locals.message) { %>
-        <p><%= message %></p>
+        <h2  class="loan feedback"><%= message %></h2>
       <% } %>
-      <button><a href="/">Back</a></button>
-    </div>
+      <img src="img/Online_library_img.jpg" class="addLoan img right">
   </div>
 </body>
 <%- include("partials/footer.ejs") %>

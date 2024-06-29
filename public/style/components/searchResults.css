@@ -1,7 +1,7 @@
 .Link.Btn {
     border-radius: 1.3rem;
     border: 0.1rem solid #999999;
-    background-color: #cce6ff;
+    background-color: #c2d6d6;;
     min-height: 2.3rem;
     font-weight: 600;
     padding: 0.7rem;
@@ -34,7 +34,7 @@ th {
     height: fit-content;
 }
 .booksHandlerBtn .Link.Btn:hover {
-    background-color: #b3daff;
+    background-color: #a3c2c2;
 }
 @media screen and (max-width: 1000px) {
     .booksHandlerBtn {

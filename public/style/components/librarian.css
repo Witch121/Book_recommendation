@@ -2,3 +2,32 @@
     padding: 1rem;
     margin-left: 5rem
 }
+.librarian_form h1 {
+    font-size: 2rem;
+}
+.librarian.area {
+    margin: 2rem;
+}
+.feedback {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    margin: 1rem;
+}
+.feedback .Link.Btn{
+    margin: 1rem;
+}
+.librarian.area .small:hover {
+    background-color: #a3c2c2;
+}
+.feedback .Link.Btn:hover {
+    background-color: #a3c2c2;
+}
+@media screen and (min-width: 768px){
+    .librarian.area {
+        display: flex;
+        flex-direction: column;
+    }
+}

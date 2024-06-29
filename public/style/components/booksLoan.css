@@ -1,0 +1,71 @@
+.new.loan {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    /* grid-template-rows: 15% 70% 15%; */
+    margin-top: 2.5rem;
+}
+.addLoan.img.left {
+    grid-area: 2/1/4/2;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.loan.titel{
+    grid-area: 1/2/2/3;
+    text-align: center;
+    margin: 1.5rem;
+}
+.loan.form {
+    grid-area: 2/2/3/3;
+    justify-self: center;
+    margin: 1rem;
+}
+.loan.feedback {
+    grid-area: 3/2/4/3;
+    display: flex;
+    margin: 1.5rem;
+    text-align: center;
+}
+.addLoan.img.right {
+    grid-area: 2/3/4/4;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.addLoan.buttons {
+    margin-top: 1rem;
+}
+.addLoan.buttons button {
+    margin-left: 1rem;
+}
+.input.addLoan.area {
+    min-width: 45%;
+}
+@media (max-width: 992px) {
+    .input.addLoan.area {
+        min-width: 80%;
+    }
+    .new.loan form {
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 768px) {
+    .new.loan {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .addLoan.buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .input.addLoan.area {
+        min-width: fit-content;
+        align-items: center;
+    }
+    .addLoan.img {
+        display: flex;
+        width: 50%;
+    }
+    .loan.feedback {
+        height: fit-content;
+    }
+}

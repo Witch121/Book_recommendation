@@ -1,14 +1,13 @@
 <%- include("partials/header.ejs") %>
 <body>
-  <div class="container">
+  <div class="container register">
     <h1>Register</h1>
     <form action="/register" method="POST">
       <input type="text" name="name_r" placeholder="Name" required>
       <input type="email" name="email" placeholder="Email" required>
-      <input type="submit" value="Register">
-      
+      <input type="submit" value="Register" class="small">
+      <button class="small"><a href="/">Back</a></button>
     </form>
-    <button><a href="/">Back</a></button>
     <div class="recomend_container">
       <% if (locals.message) { %>
         <p> <%= message %> </p>

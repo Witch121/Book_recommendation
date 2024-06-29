@@ -1,0 +1,7 @@
+.small a{
+    text-decoration: none;
+    color: black;
+}
+.small:hover {
+    background-color: #a3c2c2;;
+}
