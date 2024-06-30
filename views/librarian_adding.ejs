@@ -1,0 +1,23 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <div class="librarian_form">
+        <div class="add_Book librarian area">
+            <h1> Add the new book</h1>
+            <form action="/new" method="POST">
+
+                  <input type="text" id="title" name="title" placeholder="Title">
+
+                  <input type="text" id="name_a" name="name_a" placeholder="Author Name">
+
+                  <input type="text" id="nationality" name="nationality" placeholder="Nationality" required>
+
+                  <input type="text" id="publication_year" name="publication_year" placeholder="Publication Year" required>
+
+                  <input type="text" id="genre" name="genre" placeholder="Genre" required>
+
+                <input type="submit" value="Add Book" class="small">
+              </form>
+          </div>
+    </div>
+</body>
+<%- include("partials/footer.ejs") %>

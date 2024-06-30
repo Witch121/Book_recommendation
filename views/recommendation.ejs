@@ -3,10 +3,10 @@
   <div class = "recomend_container">
     <img src="/img/book_cat_icon.jpg" id = "left_icon">
     <% if (locals.randomWord) { %>
-        <h1> <%= randomWord %> </h1>
-        <form action="/recommendation" method="POST" class = "recomend_form">
-          <input type="submit" value="Generate Book" class = "btn-input">
-        </form>
+      <h1><%= randomWord %></h1>
+      <form action="/recommendation" method="POST" class = "recomend_form">
+        <input type="submit" value="Generate Book" class = "btn-input">
+      </form>
       <% } else if (locals.randomFantasy) { %>
         <h1> <%= randomFantasy %> </h1>
         <form action="/fantasy" method="POST" class = "recomend_form">

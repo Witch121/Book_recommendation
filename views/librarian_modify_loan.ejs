@@ -1,0 +1,16 @@
+<%- include("partials/header.ejs") %>
+<body>
+  <div class="loan_update librarian area">
+    <h1>Loan Update</h1>
+    <% if (loan) { %>
+      <form action="/updateLoan" method="POST">
+        <input type="hidden" name="id_loan" value="<%= loan.id_loan %>">
+        <input type="text" name="return_date" placeholder="Return Date" value="<%= loan.return_date %>" required>
+        <input type="submit" value="Update Loan" class="small">
+      </form>
+    <% } else { %>
+      <p><%= message %></p>
+    <% } %>
+  </div>
+</body>
+<%- include("partials/footer.ejs") %>

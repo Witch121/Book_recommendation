@@ -1,0 +1,45 @@
+<%- include("partials/header.ejs") %>
+<body>
+  <div class="container">
+    <h1>Loan Details</h1>
+    <% if (loanDetails && loanDetails.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th hidden>Book ID</th>
+            <th hidden>Loan ID</th>
+            <th>Reader Name</th>
+            <th>Title</th>
+            <th>Author Name</th>
+            <th>Loan Date</th>
+            <th>Return Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% loanDetails.forEach(function(loan) { %>
+            <tr>
+              <td hidden><%= loan.id_books %></td>
+              <td hidden><%= loan.id_loan %></td>
+              <td><%= loan.reader_name %></td>
+              <td><%= loan.title %></td>
+              <td><%= loan.author_name %></td>
+              <td><%= loan.loan_date %></td>
+              <td><%= loan.return_date %></td>
+              <td>
+                <form action="/librarian_modify_loan" method="GET">
+                  <input type="hidden" name="id_loan" value="<%= loan.id_loan %>">
+                  <button type="submit" class="btn-input small img">
+                    <img src="/img/edit_icon.png" alt="Modify" class="button-img">
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>No loan details found.</p>
+    <% } %>
+  </div>
+</body>
+<%- include("partials/footer.ejs") %>

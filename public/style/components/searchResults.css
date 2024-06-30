@@ -1,6 +1,5 @@
 .Link.Btn {
     border-radius: 1.3rem;
-    border: 0.1rem solid #999999;
     background-color: #c2d6d6;;
     min-height: 2.3rem;
     font-weight: 600;
@@ -23,9 +22,13 @@ th {
     text-align: start;
     min-width: 3rem;
 }
+td {
+    padding-bottom: 1rem;
+}
 .container.results {
     display: grid;
     grid-template-columns: 80% 20%;
+    min-height: 100vh;
 }
 .booksHandlerBtn {
     display: flex;
@@ -33,8 +36,32 @@ th {
     margin-top: 4rem;
     height: fit-content;
 }
-.booksHandlerBtn .Link.Btn:hover {
+.Link.Btn:hover {
     background-color: #a3c2c2;
+}
+.head.allBooks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.head.allBooks .btn-input{
+    height: 2rem;
+    min-width: 2.5rem;
+    margin-left: 2rem;
+}
+.head.allBooks .Link.Btn {
+    min-height: 2rem;
+    min-width: 4rem;
+    padding: 0;
+    margin-bottom: 0;
+}
+.button-img {
+    width: 24px;
+    height: 24px
+}
+.btn-input.small.img {
+    max-height: 40px;
+    min-width: 4rem;
 }
 @media screen and (max-width: 1000px) {
     .booksHandlerBtn {

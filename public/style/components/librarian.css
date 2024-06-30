@@ -31,3 +31,15 @@
         flex-direction: column;
     }
 }
+@media screen and (max-width: 768px){
+    .librarian.area {
+        display: flex;
+        flex-direction: column;
+    }
+    .librarian.area.add_Book input {
+        margin-left: 2rem;
+        margin-right: 2rem;
+        margin-bottom: 1rem;
+        width: 60%;
+    }
+}
