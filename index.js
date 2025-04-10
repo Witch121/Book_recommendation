@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mysql from "mysql2/promise";
+import { readFile } from "fs/promises";
 
 const app = express();
 const port = 3000;
@@ -10,11 +11,15 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 // MySQL connection
+const config = JSON.parse(
+  await readFile(new URL('./config.json', import.meta.url))
+);
+
 const db = await mysql.createConnection({
-  host: 'localhost',
-  user: 'root', // username
-  password: 'Student1!', // password
-  database: 'lab2' // DB name
+  host: config.host,
+  user: config.user,
+  password: config.password,
+  database: config.database
 });
 
 app.get("/", (req, res) => {
@@ -146,7 +151,6 @@ app.get("/searchBook", async (req, res) => {
 
 app.get("/update_book", async (req, res) => {
   const id = req.query.id_books;
-  //console.log(`books ID: `, id);
   const sql = 
   `SELECT b.id_books, b.title, b.id_authors, a.name_a AS author_name, b.publication_year, b.genre 
    FROM books as b
@@ -155,7 +159,6 @@ app.get("/update_book", async (req, res) => {
   try {
     const [rows, fields] = await db.execute(sql, [id]);
     res.render("librarian.ejs", {books: rows});
-    // console.log(`books rows: `, rows);
   } catch (error) {
     console.error(error);
     res.send("Error retrieving books.");
@@ -181,7 +184,7 @@ app.post("/updateLoan", async (req, res) => {
 
   try {
     await db.execute(sql, [return_date, id_loan]);
-    res.redirect("/loanDetails"); // Redirect to the loan details page after update
+    res.redirect("/loanDetails");
   } catch (error) {
     console.error("Error updating loan: ", error);
     res.send("Error updating loan.");
@@ -254,36 +257,25 @@ app.get("/new", async (req, res) => {
 
 app.post("/new", async (req, res) => {
   const { title, name_a, nationality, publication_year, genre } = req.body;
-
-  console.log(title, name_a, nationality, publication_year, genre)
-
   try {
-    // Check if the author already exists
     const [authorResult] = await db.execute(
       "SELECT id_authors FROM authors WHERE LOWER(name_a) = ? ",
       [name_a.toLowerCase()]
     );
-
     let authorId;
-
     if (authorResult.length > 0) {
-      // Author exists, use the existing author ID
       authorId = authorResult[0].id_authors;
     } else {
-      // Author doesn't exist, insert the new author
       const [newAuthorResult] = await db.execute(
         "INSERT INTO authors (name_a, nationality) VALUES (?, ?)",
         [name_a, nationality]
       );
       authorId = newAuthorResult.insertId;
     }
-
-    // Insert the new book with the author's ID
     const [bookResult] = await db.execute(
       "INSERT INTO books (title, id_authors, publication_year, genre) VALUES (?, ?, ?, ?)",
       [title, authorId, publication_year, genre]
     );
-
     res.render("librarian.ejs", { newThink: "Book and author added successfully!" });
   } catch (error) {
     console.error(error);
@@ -293,21 +285,17 @@ app.post("/new", async (req, res) => {
 
 app.get("/loan", (req, res) => {""
   const { id_books } = req.query;
-  // console.log("/loan: ", id_books);
   res.render("booksLoan.ejs", { id_books });
 });
 
 app.post("/addLoan", async (req, res) => {
   const { name_r, email, id_books, loan_date } = req.body;
 
-  // console.log("/addLoan: ",name_r, email, id_books, loan_date);
-
   if (!name_r || !email || !id_books || !loan_date) {
     return res.render("booksLoan.ejs", { message: "Missing required information." });
   }
 
   try {
-    // Check if the reader already exists
     const [readerResult] = await db.execute(
       "SELECT id_readers FROM readers WHERE name_r = ? AND email = ?",
       [name_r, email]
@@ -316,19 +304,14 @@ app.post("/addLoan", async (req, res) => {
     let id_readers;
 
     if (readerResult.length > 0) {
-      // Reader exists, use the existing reader ID
       id_readers = readerResult[0].id_readers;
     } else {
-      // Reader doesn't exist, insert the new reader
       const [newReaderResult] = await db.execute(
         "INSERT INTO readers (name_r, email) VALUES (?, ?)",
         [name_r, email]
       );
       id_readers = newReaderResult.insertId;
     }
-    // console.log("Inserting into book_loan: ", { id_books, id_readers, loan_date });
-
-    // Insert the new book loan with the reader's ID
     await db.execute(
       "INSERT INTO book_loan (id_books, id_readers, loan_date) VALUES (?, ?, ?)",
        [parseInt(id_books), parseInt(id_readers), loan_date]
@@ -363,7 +346,7 @@ app.post("/login", async (req, res) => {
 // Registration route
 app.post("/register", async (req, res) => {
   const { name_r, email } = req.body;
-  const { id_books } = req.query; // Get the id_books from query parameters
+  const { id_books } = req.query;
   try {
     const [existingUser] = await db.execute(
       "SELECT * FROM readers WHERE email = ?",
@@ -384,37 +367,6 @@ app.post("/register", async (req, res) => {
     res.render("register.ejs", { message: "Error registering user." });
   }
 });
-//loan old
-
-// app.post("/addLoan", async (req, res) => {
-//   const {name_r, email, id_books, loan_date} = req.body;
-//   const id = req.query.id_books;
-
-//   if (!name_r || !email) {
-//       return res.render("booksLoan.ejs", { message: "User information missing." });
-//   }
-//   try {
-//       const [reader] = await db.execute(
-//           "SELECT id_readers FROM readers WHERE name_r = ? AND email = ?",
-//           [name_r, email]
-//       );
-
-//       if (reader.length === 0) {
-//           return res.redirect("/login");
-//       }
-
-//       const id_readers = reader[0].id_readers;
-
-//       await db.execute(
-//           "INSERT INTO book_loan (id_books, id_readers, loan_date) VALUES (?, ?, ?)",
-//           [id_books, id_readers, loan_date]
-//       );
-//       res.render("booksLoan.ejs", { message: "Loan added successfully!", name_r, email });
-//   } catch (error) {
-//       console.error(error);
-//       res.render("booksLoan.ejs", { message: "Error adding loan." });
-//   }
-// });
 
 app.get("/booksLoan", (req, res) => {
   const { name_r, email } = req.query;
@@ -424,61 +376,24 @@ app.get("/booksLoan", (req, res) => {
   res.render("booksLoan.ejs", { name_r, email });
 });
 
-//
-
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-// app.get("/searchAuthor", async (req, res) => {
-//   const author_name = req.query.author;
-//   try {
-//     const [rows, fields] = await db.execute(
-//       `SELECT books.id_books, books.title, books.id_authors, authors.name_a AS author_name, books.publication_year, books.genre
-//        FROM books 
-//        JOIN authors ON books.id_authors = authors.id_authors 
-//        WHERE LOWER(authors.name_a) = ?`,
-//       [author_name.toLowerCase()]
-//     );
-//     // console.log(rows);  // Log the rows to ensure we are getting the expected data
-//     res.render("searchResults.ejs", { books: rows, author_name: author_name });
-//   } catch (error) {
-//     console.error(error);
-//     res.send("Error retrieving books.");
-//   }
-// });
-
-
-// app.get("/searchTitle", async (req, res) => {
-//   const title = req.query.title;
-//   try {
-//     const [rows, fields] = await db.execute(
-//       `SELECT books.id_books, books.title, books.id_authors, authors.name_a AS author_name, books.publication_year, books.genre
-//        FROM books 
-//        JOIN authors ON books.id_authors = authors.id_authors 
-//        WHERE LOWER(books.title) LIKE ?`,
-//       [`%${title.toLowerCase()}%`]
-//     );
-//     res.render("searchResults.ejs", { books: rows, title: title });
-//   } catch (error) {
-//     console.error(error);
-//     res.send("Error retrieving books.");
-//   }
-// });
-// app.post("/update", async (req, res) => {
-//   const { id_books, title, id_authors, author_name, publication_year, genre } = req.body;
-//   try {
-//     await db.execute(
-//       "UPDATE books SET title = ?, publication_year = ?, genre = ? WHERE id_books = ?",
-//       [title, publication_year, genre, id_books]
-//     );
-//     await db.execute(
-//       "UPDATE authors SET name_a = ? WHERE id_authors = ?",
-//       [author_name, id_authors]
-//     );
-//     res.render("librarian.ejs", { updateThink: "Book updated successfully!" });
-//   } catch (error) {
-//     console.error(error);
-//     res.render("librarian.ejs", { updateThink: "Error updating book." });
-//   }
-// });
+app.post("/update", async (req, res) => {
+  const { id_books, title, id_authors, author_name, publication_year, genre } = req.body;
+  try {
+    await db.execute(
+      "UPDATE books SET title = ?, publication_year = ?, genre = ? WHERE id_books = ?",
+      [title, publication_year, genre, id_books]
+    );
+    await db.execute(
+      "UPDATE authors SET name_a = ? WHERE id_authors = ?",
+      [author_name, id_authors]
+    );
+    res.render("librarian.ejs", { updateThink: "Book updated successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.render("librarian.ejs", { updateThink: "Error updating book." });
+  }
+});
